@@ -1,23 +1,8 @@
 import type { NextAuthOptions } from "next-auth";
-// import GitHubProvider from 'next-auth/providers/github'
 import CredentialsProvider from "next-auth/providers/credentials";
-// import { GithubProfile } from 'next-auth/providers/github'
 
 export const options: NextAuthOptions = {
   providers: [
-    // GitHubProvider({
-    //     profile(profile: GithubProfile) {
-    //         //console.log(profile)
-    //         return {
-    //             ...profile,
-    //             role: profile.role ?? "user",
-    //             id: profile.id.toString(),
-    //             image: profile.avatar_url,
-    //         }
-    //     },
-    //     clientId: process.env.GITHUB_ID as string,
-    //     clientSecret: process.env.GITHUB_SECRET as string,
-    // }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -37,37 +22,21 @@ export const options: NextAuthOptions = {
         // to verify with credentials
         // Docs: https://next-auth.js.org/configuration/providers/credentials
 
-        // const users = [
-        //   { username: "aa", password: "ab" },
-        //   { username: "bb", password: "bc" },
-        // ];
+        const users = [
+          { id: "1", name: "admin", password: "admin", role: "admin" },
+          { id: "2", name: "manager", password: "manager", role: "manager" },
+        ];
+        let user;
+        for (let i = 0; i < users.length; i++) {
+          if (
+            credentials?.username === users[i].name &&
+            credentials?.password === users[i].password
+          ) {
+            user = users[i];
+          }
+        }
 
-        // const user = { username: "bb", password: "bc" };
-
-        // let text;
-
-        // for (let i = 0; i < users.length; i++) {
-        //   if (
-        //     users[i].username === user.username &&
-        //     users[i].password === user.password
-        //   ) {
-        //     text = "user exists";
-        //     break;
-        //   }
-
-        //   text = "user deos not exist";
-        // }
-        const user = {
-          id: "42",
-          name: "Dave",
-          password: "nextauth",
-          role: "manager",
-        };
-
-        if (
-          credentials?.username === user.name &&
-          credentials?.password === user.password
-        ) {
+        if (user != null) {
           return user;
         } else {
           return null;
@@ -86,5 +55,8 @@ export const options: NextAuthOptions = {
       if (session?.user) session.user.role = token.role;
       return session;
     },
+  },
+  pages: {
+    signIn: "/auth/signin",
   },
 };
