@@ -6,9 +6,7 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
 const LoginPage = () => {
-  const { data: session, status } = useSession({
-    required: true,
-  });
+  const { data: session, status } = useSession();
 
   if (status === "authenticated") {
     redirect("/server");
