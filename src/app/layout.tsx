@@ -1,30 +1,44 @@
-import './globals.css'
-import { Inter } from 'next/font/google'
-import Navbar from './components/Navbar'
-import AuthProvider from './context/AuthProvider'
+import "./globals.css";
+import { Inter } from "next/font/google";
+import { MainNav } from "@/components/ui/main-nav";
+import { UserNav } from "@/components/ui/user-nav";
+import { Search } from "@/components/ui/search";
+import AuthProvider from "./context/AuthProvider";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ModeToggle } from "@/components/ui/theme-switcher";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: 'NextAuth Tutorial',
-  description: 'Learn NextAuth.js by Dave Gray',
-}
+  title: "NextAuth Tutorial",
+  description: "Learn NextAuth.js by Dave Gray",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head />
       <body className={inter.className}>
-        <AuthProvider>
-          <Navbar />
-          <main className="flex justify-center items-start p-6 min-h-screen">
-            {children}
-          </main>
-        </AuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <AuthProvider>
+            <div className="border-b">
+              <div className="flex h-16 items-center px-4">
+                <MainNav className="mx-6" />
+                <div className="ml-auto flex items-center space-x-4">
+                  <Search />
+                  <UserNav />
+                  <ModeToggle />
+                </div>
+              </div>
+            </div>
+            <main>{children}</main>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }

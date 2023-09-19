@@ -5,10 +5,11 @@ import React, { useRef } from "react";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
 const LoginPage = () => {
-  const { data: session, status } = useSession({
-    required: true,
-  });
+  const { data: session, status } = useSession();
 
   if (status === "authenticated") {
     redirect("/server");
@@ -26,19 +27,19 @@ const LoginPage = () => {
     });
   };
   return (
-    <div className={""}>
-      <div className="">
-        <input
+    <div>
+      <div>
+        <Input
           type="text"
           placeholder="User Name"
           onChange={(e) => (userName.current = e.target.value)}
         />
-        <input
+        <Input
           type="password"
           placeholder="Password"
           onChange={(e) => (pass.current = e.target.value)}
         />
-        <button onClick={onSubmit}>Login</button>
+        <Button onClick={onSubmit}>Login</Button>
       </div>
     </div>
   );
