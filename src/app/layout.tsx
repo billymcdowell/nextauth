@@ -10,8 +10,8 @@ import { ModeToggle } from "@/components/ui/theme-switcher";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "NextAuth Tutorial",
-  description: "Learn NextAuth.js by Dave Gray",
+  title: "NextAuth Template",
+  description: "NextAuth, Shadcn/ui & useKeyboardShortcut Template",
 };
 
 export default function RootLayout({
