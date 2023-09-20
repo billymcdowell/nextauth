@@ -14,10 +14,21 @@ import {
 } from "./dropdown-menu";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import useKeyboardShortcut from "use-keyboard-shortcut";
 
 export function UserNav() {
   const { data: session } = useSession();
   const initials = session?.user.role;
+
+  const { flushHeldKeys } = useKeyboardShortcut(
+    ["Shift", "Q"],
+    (shortcutKeys) => signOut(),
+    {
+      overrideSystem: true,
+      ignoreInputFields: false,
+      repeatOnHold: false,
+    }
+  );
 
   if (!session) return;
 
@@ -45,7 +56,7 @@ export function UserNav() {
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => signOut()}>
           Log out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+          <DropdownMenuShortcut>⇧Q</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

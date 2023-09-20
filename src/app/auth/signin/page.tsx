@@ -27,20 +27,19 @@ const LoginPage = () => {
     });
   };
   return (
-    <div>
-      <div>
-        <Input
-          type="text"
-          placeholder="User Name"
-          onChange={(e) => (userName.current = e.target.value)}
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => (pass.current = e.target.value)}
-        />
-        <Button onClick={onSubmit}>Login</Button>
-      </div>
+    <div className="max-w-lg m-auto mt-24 flex flex-col gap-4">
+      <h1 className="text-xl align-center">Login</h1>
+      <Input
+        type="text"
+        placeholder="User Name"
+        onChange={(e) => (userName.current = e.target.value)}
+      />
+      <Input
+        type="password"
+        placeholder="Password"
+        onChange={(e) => (pass.current = e.target.value)}
+      />
+      <Button onClick={onSubmit}>Login</Button>
     </div>
   );
 };
