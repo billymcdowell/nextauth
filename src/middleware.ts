@@ -11,7 +11,7 @@ export default withAuth(
     // if (request.nextUrl.pathname === "/") {
     // }
     if (
-      request.nextUrl.pathname.startsWith("/extra") &&
+      request.nextUrl.pathname.startsWith("/admin-only") &&
       request.nextauth.token?.role !== "admin"
     ) {
       return NextResponse.rewrite(new URL("/denied", request.url));
